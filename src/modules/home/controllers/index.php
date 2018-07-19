@@ -15,4 +15,10 @@ class Index extends Controller
     {
         return $response->withJson(['ok']);
     }
+
+    public function dbtest($request, $response, $args)
+    {
+        $db = $this->get('db');
+        var_dump($db);
+    }
 }
