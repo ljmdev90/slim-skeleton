@@ -1,5 +1,11 @@
 {
     "require": {
         "slim/slim": "^3.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "Application\\Cores\\":"src/cores/",
+            "Application\\Modules\\":"src/modules/"
+        }
     }
 }
