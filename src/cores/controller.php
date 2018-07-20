@@ -13,15 +13,17 @@ abstract class Controller
     }
 
     public function __invoke($req, $res, $args) {
-        $container = $this->container;
-        $this->controller = isset($args['controller']) ? $args['controller'] : 'Home';
-        $this->action = $action_name = isset($args['action']) ? $args['action'] : 'index';
-        $params = [
-            'request'   =>  $req,
-            'response'  =>  $res,
-            'args'      =>  $args
-        ];
-        return call_user_func_array(array($this, $action_name), $params);
+        $action_name = isset($args['action']) ? $args['action'] : 'index';
+        if (is_callable(array($this, $action_name))) {
+            $params = [
+                'request'   =>  $req,
+                'response'  =>  $res,
+                'args'      =>  $args
+            ];
+            return call_user_func_array(array($this, $action_name), $params);
+        }
+        
+        throw new NotFoundException($req, $res);
     }
     
     protected function get($name)
