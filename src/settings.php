@@ -6,13 +6,13 @@ return [
             
             // medoo database settings
             'db'    =>  [
-                'database_type' => 'mysql',
-                'database_name' => 'test',
-                'server' => '127.0.0.1',
-                'username' => 'root',
-                'password' => '123456',
-                'charset' => 'utf8',
-                'port' => 3306,
+                'database_type' => getenv('DB_TYPE'),
+                'database_name' => getenv('DB_NAME'),
+                'server' => getenv('DB_HOST'),
+                'username' => getenv('DB_USER'),
+                'password' => getenv('DB_PASS'),
+                'charset' => getenv('DB_CHARSET'),
+                'port' => getenv('DB_PORT'),
                 'prefix' => 't_',
                 'option' => [
                     PDO::ATTR_CASE => PDO::CASE_NATURAL
