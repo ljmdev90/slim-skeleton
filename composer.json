@@ -6,8 +6,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Application\\Cores\\":"src/cores/",
-            "Application\\Modules\\":"src/modules/"
+            "Application\\Cores\\":"src/Cores/",
+            "Application\\Modules\\":"src/Modules/"
         }
     }
 }
