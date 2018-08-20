@@ -2,11 +2,14 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 // Routes
+$app->get('/', function($request, $response) {
+    $response->getBody()->write("Hello World");
+    return $response;
+});
+
 $app->get('/hello[/{name}]', '\Application\\Modules\\Home\\Controllers\\Index:hello');
 
 $app->group('',function() {
-    $controller_name = '\Application\\Modules\\Home\\Controllers\\Index';
-    $controller = new $controller_name($this);
     $slim = $this;
     $this->map(['GET','POST'], '[/{controller}[/{action}]]', function($req, $res, $args) use ($slim) {
         $controller_name = '\Application\\Modules\\Home\\Controllers\\';
