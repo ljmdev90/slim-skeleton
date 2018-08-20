@@ -5,14 +5,16 @@ abstract class Controller
 {
     protected $container;
 
-    public function __construct($container) {
+    public function __construct($container)
+    {
         $this->container = $container;
         if (method_exists($this, 'init')) {
             $this->init();
         }
     }
 
-    public function __invoke($req, $res, $args) {
+    public function __invoke($req, $res, $args)
+    {
         $action_name = isset($args['action']) ? $args['action'] : 'index';
         if (is_callable(array($this, $action_name))) {
             $params = [
@@ -29,5 +31,19 @@ abstract class Controller
     protected function get($name)
     {
         return $this->container->get($name);
+    }
+
+    protected function render($data = array(), $template_file = '')
+    {
+        if (empty($template_file)) {
+            $uri = $this->get('request')->getUri();
+            $path = $uri->getPath();
+            $path = explode('/', ltrim($path, '/'));
+            array_walk($path, function(&$item) {
+                $item = \ucfirst($item);
+            });
+            $template_file = implode('/', $path) . '.php';
+        }    
+        return $this->get('view')->render($this->get('response'), $template_file, $data);
     }
 }

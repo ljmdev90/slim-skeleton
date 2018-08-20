@@ -16,6 +16,11 @@ class Index extends Controller
         return $response->withJson(['ok']);
     }
 
+    public function view($request, $response, $args)
+    {
+        return $this->render(['a'=>1, 'b'=>2]);
+    }
+
     public function dbtest($request, $response, $args)
     {
         $db = $this->get('db');
