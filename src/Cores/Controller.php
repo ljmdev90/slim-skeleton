@@ -15,7 +15,8 @@ abstract class Controller
 
     public function __invoke($req, $res, $args)
     {
-        $action_name = isset($args['action']) ? $args['action'] : 'index';
+        $actions = explode('.', isset($args['action']) ? $args['action'] : 'index');
+        $action_name = reset($actions);
         if (is_callable(array($this, $action_name))) {
             $params = [
                 'request'   =>  $req,
@@ -40,10 +41,10 @@ abstract class Controller
             $path = $uri->getPath();
             $path = explode('/', ltrim($path, '/'));
             array_walk($path, function(&$item) {
-                $item = \ucfirst($item);
+                $item = \ucfirst(reset(explode('.', $item)));
             });
             $template_file = implode('/', $path) . '.php';
-        }    
+        }
         return $this->get('view')->render($this->get('response'), $template_file, $data);
     }
 }
