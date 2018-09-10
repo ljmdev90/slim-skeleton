@@ -8,6 +8,7 @@ abstract class Controller
     public function __construct($container)
     {
         $this->container = $container;
+        Model::setContainer($container);
         if (method_exists($this, 'init')) {
             $this->init();
         }
