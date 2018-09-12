@@ -4,8 +4,12 @@ namespace Application\Cores;
 use Interop\Container\ContainerInterface;
 use Medoo\Medoo;
 
+use Application\Cores\Commons\Singleton\SingletonTrait;
+
 class Model
 {
+    use SingletonTrait;
+
     protected $database;
     protected static $table = '';
 
@@ -13,7 +17,6 @@ class Model
 
     private $settings = [];
 
-    protected static $instances = [];
     protected static $connections = [];
 
     private static $container = null;
@@ -30,24 +33,16 @@ class Model
         self::$container = $container;
     }
 
-    public static function getInstace($table = '')
-    {
+    protected static function beforeGetInstance($table = '') {
         if ($table) {
             static::$table = $table;
         }
         if (!static::$table) {
             throw new \Exception("Table can't be empty.");
         }
-
-        $key = md5(static::$table);
-        $instance = self::$instances[$key];
-		if (!isset($instance) || empty($instance)) {
-			self::$instances[$key] = new static();
-		}
-		return self::$instances[$key];
     }
 
-    private function getConnection()
+    public function getConnection()
     {
         $type = $this->read ? 'slave' : 'master';
         $setting = $this->settings[$type][array_rand($this->settings[$type])];
