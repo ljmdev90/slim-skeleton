@@ -5,6 +5,7 @@ use Interop\Container\ContainerInterface;
 use Medoo\Medoo;
 
 use Application\Cores\Commons\Singleton\SingletonTrait;
+use Application\Cores\Commons\Singleton\SingletonRegister;
 
 class Model
 {
@@ -49,20 +50,9 @@ class Model
         $type = $this->read ? 'slave' : 'master';
         $setting = $this->settings[$type][array_rand($this->settings[$type])];
         $key = md5(json_encode($setting));
-        if (!isset(self::$connections[$key]) || !(self::$connections[$key] instanceof Medoo)) {
-            self::$connections[$key] = new Medoo([
-                'database_type' => $setting['database_type'],
-                'database_name' => $setting['database_name'],
-                'prefix' => $setting['prefix'],
-                'server' => $setting['server'],
-                'username' => $setting['username'],
-                'password' => $setting['password'],
-                'charset' => $setting['charset'],
-                'port' => $setting['port'],
-                'option' => $setting['option'],
-            ]);
-        }
-        return self::$connections[$key];
+        return SingletonRegister::getInstance()->get($key, function() use ($setting) {
+            return new Medoo($setting);
+        });
     }
 
     /**
