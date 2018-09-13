@@ -10,7 +10,7 @@ class SingletonRegister
         self::$instances[$key] = $instance;
     }
 
-    public function get($key = '', $callback)
+    public function get($key, $callback)
     {
         if (!is_object(self::$instances[$key])) {
             if (!is_callable($callback)) {
