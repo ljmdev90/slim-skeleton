@@ -7,7 +7,6 @@ trait SingletonTrait
 
     protected function __contruct()
     {
-
     }
 
     final public function __clone()
@@ -27,7 +26,6 @@ trait SingletonTrait
 
     protected static function beforeGetInstance($class)
     {
-
     }
 
     public static function getInstance($class = '')
@@ -48,6 +46,5 @@ trait SingletonTrait
 
     protected static function afterGetInstance($instance)
     {
-
     }
 }

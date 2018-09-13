@@ -29,11 +29,13 @@ class Model
         $this->settings = self::$container->get('settings')['db-cluster'];
     }
 
-    public static function setContainer(ContainerInterface $container) {
+    public static function setContainer(ContainerInterface $container)
+    {
         self::$container = $container;
     }
 
-    protected static function beforeGetInstance($table = '') {
+    protected static function beforeGetInstance($table = '')
+    {
         if ($table) {
             static::$table = $table;
         }
@@ -47,7 +49,7 @@ class Model
         $type = $this->read ? 'slave' : 'master';
         $setting = $this->settings[$type][array_rand($this->settings[$type])];
         $key = md5(json_encode($setting));
-        if (!isset(self::$connections[$key]) || empty(self::$connections[$key]) || !(self::$connections[$key] instanceof Medoo)) {
+        if (!isset(self::$connections[$key]) || !(self::$connections[$key] instanceof Medoo)) {
             self::$connections[$key] = new Medoo([
                 'database_type' => $setting['database_type'],
                 'database_name' => $setting['database_name'],
@@ -97,7 +99,8 @@ class Model
                     if (!$params[0]) {    // 更新/删除条件不为为空，防止更新/删除全部数据
                         throw new \Exception(ucfirst($method) . ' condition cann\'t be empty.');
                     }
-                    $pdostate = $this->getConnection()->$method(static::$table, $method == 'update' ? $params[1] : $params[0], $params[0]);
+                    $cond = $method == 'update' ? $params[1] : $params[0];
+                    $pdostate = $this->getConnection()->$method(static::$table, $cond, $params[0]);
                     $result = $pdostate->rowCount();
                     break;
             }
