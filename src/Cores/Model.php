@@ -50,7 +50,7 @@ class Model
         $type = $this->read ? 'slave' : 'master';
         $setting = $this->settings[$type][array_rand($this->settings[$type])];
         $key = md5(json_encode($setting));
-        return SingletonRegister::getInstance()->get($key, function() use ($setting) {
+        return SingletonRegister::getInstance()->get($key, function () use ($setting) {
             return new Medoo($setting);
         });
     }
