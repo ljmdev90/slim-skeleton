@@ -1,0 +1,10 @@
+version: '3'
+services:
+    nginx:
+        image: hewn2011/php:7.2-nginx
+        container_name: php-72-nginx
+        volumes:
+            - ./nginx-example.conf:/etc/nginx/conf.d/slim-skeleton.conf
+            - ./:/www
+        ports:
+            - "8000:8000"
