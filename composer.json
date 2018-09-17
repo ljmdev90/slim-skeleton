@@ -3,7 +3,8 @@
         "slim/slim": "^3.10",
         "catfan/Medoo": "^1.5",
         "vlucas/phpdotenv": "^2.5",
-        "slim/php-view": "^2.2.0"
+        "slim/php-view": "^2.2.0",
+        "symfony/cache": "^4.1"
     },
     "autoload": {
         "psr-4": {
