@@ -3,6 +3,7 @@ namespace Application\Modules\Home\Controllers;
 
 use Application\Cores\Controller;
 use Application\Cores\Model;
+use Application\Cores\Libraries\Caches\Redis;
 use Application\Modules\Home\Models\T1;
 
 class Index extends Controller
@@ -44,5 +45,14 @@ class Index extends Controller
         // $res = $t1->delete(['id'=>5]);
         var_dump($res);
         echo ($t1->lastSql());
+    }
+
+    public function redistest()
+    {
+        $redis = Redis::getInstance();
+        // var_dump($redis);
+        var_dump($redis);
+        $redis = $this->get('redis');
+        var_dump($redis);
     }
 }
