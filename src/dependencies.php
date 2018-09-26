@@ -9,7 +9,8 @@
 
     // redis
     use Application\Cores\Libraries\Caches\Redis;
-    $container['redis'] = function($c) {
+
+    $container['redis'] = function ($c) {
         Redis::$setting = $c->get('settings')['redis'];
         return Redis::getInstance();
     };
