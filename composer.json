@@ -1,4 +1,6 @@
 {
+    "name": "TimeFinger/slim-skeleton",
+    "description": "My slim sketeton",
     "require": {
         "slim/slim": "^3.10",
         "catfan/Medoo": "^1.5",
