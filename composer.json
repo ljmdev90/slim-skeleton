@@ -14,5 +14,8 @@
             "Application\\Cores\\":"src/Cores/",
             "Application\\Modules\\":"src/Modules/"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.2"
     }
 }
