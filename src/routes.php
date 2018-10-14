@@ -8,7 +8,7 @@ $app->get('/', function ($request, $response) {
     return $response;
 });
 
-$app->get('/hello[/{name}]', '\Application\\Modules\\Home\\Controllers\\Index:hello');
+$app->map(['get', 'post'], '/hello[/{name}]', '\Application\\Modules\\Home\\Controllers\\Index:hello');
 
 $app->group('', function () {
     $container = $this->getContainer();
