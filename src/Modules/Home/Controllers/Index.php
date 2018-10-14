@@ -11,7 +11,7 @@ class Index extends Controller
     
     public function hello($request, $response, $args)
     {
-        return $response->write('ok');
+        return $response->write($args['name']);
     }
 
     public function fuck($request, $response, $args)
