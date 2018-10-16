@@ -35,6 +35,9 @@ class Model
         self::$container = $container;
     }
 
+    /**
+     * 重写SingletonTrait中的方法，调用getInstance方法前执行
+     */
     protected static function beforeGetInstance($table = '')
     {
         if ($table) {
@@ -45,6 +48,9 @@ class Model
         }
     }
 
+    /**
+     * 获取Medoo对象
+     */
     public function getConnection()
     {
         $type = $this->read ? 'slave' : 'master';
@@ -56,6 +62,7 @@ class Model
     }
 
     /**
+     * 增删改查操作
      * e.g.
      * $model->select/get/has...($where, $columns, $join);
      * $model->insert($data);
@@ -99,6 +106,49 @@ class Model
         return $result;
     }
 
+    /**
+     * 开启事务
+     */
+    public function beginTransaction()
+    {
+        $this->getConnection()->pdo->beginTransaction();
+    }
+
+    /**
+     * 回滚事务
+     */
+    public function rollBack()
+    {
+        $this->getConnection->pdo->rollBack();
+    }
+
+    /**
+     * 提交事务
+     */
+    public function commit()
+    {
+        $this->getConnection->pdo->commit();
+    }
+
+    /**
+     * 是否在事务中
+     */
+    public function inTransaction()
+    {
+        $this->getConnection->pdo->inTransaction();
+    }
+
+    /**
+     * 事务封装
+     */
+    public function action($callback)
+    {
+        $this->getConnection->action();
+    }
+
+    /**
+     * 最后一条执行的sql
+     */
     public function lastSql()
     {
         return $this->getConnection()->last();
