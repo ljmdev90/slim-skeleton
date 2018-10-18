@@ -34,7 +34,7 @@ $serv->on('request', function ($request, $response) {
     require __DIR__ . '/../src/routes.php';
     $app->run();
     $result = ob_get_contents();
-    ob_get_clean();
+    ob_end_clean();
     $response->end($result);
 });
 
