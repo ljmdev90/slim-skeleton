@@ -7,7 +7,6 @@ trait SingletonTrait
 
     protected function __contruct()
     {
-        var_dump(method_exists($this, 'initialize'));
         if (method_exists($this, 'initialize')) {
             $this->initialize();
         }
