@@ -13,7 +13,7 @@ class TaskMiddleware
     public function __invoke($request, $response, $next)
     {
         if (PHP_SAPI != 'cli') {
-            $response = $next($request, $response);
+            return $response = $next($request, $response);
         }
 
         global $argv;
