@@ -12,7 +12,8 @@
     "autoload": {
         "psr-4": {
             "Application\\Cores\\":"src/Cores/",
-            "Application\\Modules\\":"src/Modules/"
+            "Application\\Modules\\":"src/Modules/",
+            "Application\\Tasks\\":"src/Tasks/"
         }
     },
     "require-dev": {
