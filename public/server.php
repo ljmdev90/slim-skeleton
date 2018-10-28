@@ -1,6 +1,7 @@
 <?php
 
 $serv = new Swoole\Http\Server('0.0.0.0', 9501);
+
 $serv->on('WorkerStart', function () {
     require __DIR__ . '/../vendor/autoload.php';
     if (session_status() !== PHP_SESSION_ACTIVE) {
@@ -37,5 +38,9 @@ $serv->on('request', function ($request, $response) {
     ob_end_clean();
     $response->end($result);
 });
+
+$serv->set(array(
+    'daemonize' =>  1,
+));
 
 $serv->start();
