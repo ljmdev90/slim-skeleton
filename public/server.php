@@ -1,5 +1,29 @@
 <?php
 
+$pid_file = '/tmp/server.pid';
+
+$is_stop = isset($argv[1]) && $argv[1] == 'stop' ? true : false;
+
+if (file_exists($pid_file)) {
+    $pid = file_get_contents($pid_file);
+    $is_exist = Swoole\Process::kill($pid, 0);
+    if ($is_exist) {
+        if ($is_stop) {
+            if (Swoole\Process::kill($pid)) {
+                exit("Stopped Swoole Server\n");
+            } else {
+                exit("Stopping Swoole Server Error\n");
+            }
+        } else {
+            exit("Swoole Server is Already Running");
+        }
+    }
+}
+if ($is_stop) {
+    exit("Swoole Server is not Running\n");
+}
+
+
 $serv = new Swoole\Http\Server('0.0.0.0', 9501);
 
 $serv->on('WorkerStart', function () {
@@ -41,6 +65,7 @@ $serv->on('request', function ($request, $response) {
 
 $serv->set(array(
     'daemonize' =>  1,
+    'pid_file'  =>  $pid_file,
 ));
 
 $serv->start();
