@@ -23,6 +23,7 @@ if ($is_stop) {
     exit("Swoole Server is not Running\n");
 }
 
+define('SWOOLE_MODE', true);
 
 $serv = new Swoole\Http\Server('0.0.0.0', 9501);
 
