@@ -5,7 +5,7 @@ use Application\Cores\Controller;
 
 class Example extends Controller
 {
-    public function run()
+    public function run($params = [])
     {
         echo 'running...' . PHP_EOL;
     }

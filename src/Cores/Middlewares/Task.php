@@ -21,11 +21,11 @@ class Task
         $command = '';
         if (count($argv) > 1) {
             $command = $argv[1];
-            $args = array_slice($argv, 2);
-
             $class = '\\Application\\Tasks\\' . $command;
             $example = new $class($this->container);
-            $example->run();
+            
+            $args = array_slice($argv, 2);
+            $example->run($args);
 
             return $response;
         }
