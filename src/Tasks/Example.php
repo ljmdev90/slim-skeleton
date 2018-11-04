@@ -1,12 +1,12 @@
 <?php
 namespace Application\Tasks;
 
-use Application\Cores\Controller;
+use Application\Cores\Task;
 
-class Example extends Controller
+class Example extends Task
 {
     public function run($params = [])
     {
-        echo 'running...' . PHP_EOL;
+        $this->line('Running...');
     }
 }
