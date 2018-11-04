@@ -7,7 +7,8 @@
         "vlucas/phpdotenv": "^2.5",
         "slim/php-view": "^2.2.0",
         "symfony/cache": "^4.1",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "wp-cli/php-cli-tools": "^0.11.10"
     },
     "autoload": {
         "psr-4": {
