@@ -47,7 +47,6 @@ $serv->on('request', function ($request, $response) {
     $_COOKIE = $request->cookie;
     $_FILES = $request->files;  // 不知道为什么,这里postman测试一直没值
 
-    ob_start();
     $env = __DIR__ . '/../.env';
     if (file_exists($env)) {
         $dotenv = new Dotenv\Dotenv(dirname($env));
@@ -58,10 +57,8 @@ $serv->on('request', function ($request, $response) {
     require __DIR__ . '/../src/dependencies.php';
     require __DIR__ . '/../src/middleware.php';
     require __DIR__ . '/../src/routes.php';
-    $app->run();
-    $result = ob_get_contents();
-    ob_end_clean();
-    $response->end($result);
+    $slimResponse = $app->run(true);
+    $response->end($slimResponse->getBody());
 });
 
 $serv->set(array(
