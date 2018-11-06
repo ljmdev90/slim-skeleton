@@ -40,6 +40,9 @@ $serv->on('request', function ($request, $response) {
         // 如果不指定以下代码，$_SERVER中无REQUEST_METHOD等项，导致method not allow
         $_SERVER[strtoupper($key)] = $val;
     };
+    foreach ($request->header as $key => $val) {
+        $_SERVER[str_replace('-', '_', strtoupper($key))] = $val;
+    };
 
     // 设置$_GET、$_POST、$_COOKIE、$_FILES
     $_GET = $request->get;
@@ -62,7 +65,7 @@ $serv->on('request', function ($request, $response) {
 });
 
 $serv->set(array(
-    'daemonize' =>  1,
+    // 'daemonize' =>  1,
     'pid_file'  =>  $pid_file,
 ));
 
