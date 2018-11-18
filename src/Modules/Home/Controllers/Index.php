@@ -55,4 +55,13 @@ class Index extends Controller
         $redis = $this->get('redis');
         var_dump($redis);
     }
+
+    public function swooleTest()
+    {
+        # sleep(1);
+        swoole_timer_after(1000, function () {
+            var_dump('abc');
+        });
+        var_dump(123);
+    }
 }
