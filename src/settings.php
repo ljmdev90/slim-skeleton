@@ -59,5 +59,12 @@ return [
         'redis'  =>  [
             'tcp://127.0.0.1:6379',
         ],
+
+        // monolog setting
+        'logger' =>  [
+            'name'  =>  'filelog',
+            'path'  =>  '/tmp/slim.log',
+            'level' =>  Monolog\Logger::WARNING,    // warning级别以下的不会写入日志
+        ],
     ],
 ];

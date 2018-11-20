@@ -19,3 +19,10 @@
     $container['view'] = function ($c) {
         return new \Slim\Views\PhpRenderer('./templates/');
     };
+
+    $container['logger'] = function ($c) {
+        $settings = $c->get('settings')['logger'];
+        $logger = new Monolog\Logger($settings['name']);
+        $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
+        return $logger;
+    };
