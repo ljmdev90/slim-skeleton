@@ -6,7 +6,7 @@ use Application\Cores\Model;
 use Application\Cores\Libraries\Caches\Redis;
 use Application\Modules\Home\Models\T1;
 
-class Index extends Controller
+class Example extends Controller
 {
     
     public function hello($request, $response, $args)
@@ -24,7 +24,7 @@ class Index extends Controller
         return $this->render(['a'=>1, 'b'=>2]);
     }
 
-    public function dbtest($request, $response, $args)
+    public function db($request, $response, $args)
     {
         $db = $this->get('db');
         // var_dump($db);
@@ -47,16 +47,24 @@ class Index extends Controller
         echo ($t1->lastSql());
     }
 
-    public function redistest()
+    public function redis()
     {
         $redis = Redis::getInstance();
-        // var_dump($redis);
         var_dump($redis);
         $redis = $this->get('redis');
         var_dump($redis);
     }
 
-    public function swooleTest()
+    public function log()
+    {
+        $logger = $this->get('logger');
+        $logger->addNotice('Notice log...');    // 这一条不会写入日志文件
+        $logger->addWarning('Warn log...');
+        $logger->addError('Error log...');
+    }
+
+    // 只有在cli模式下才能正常访问
+    public function swoole()
     {
         # sleep(1);
         swoole_timer_after(1000, function () {
