@@ -8,3 +8,12 @@ services:
             - ./:/www
         ports:
             - "8000:8000"
+
+    mariadb:
+        image: mariadb:5.5.61
+        container_name: mariadb
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: 123456
+        ports:
+           - 3306:3306
