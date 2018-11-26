@@ -19,12 +19,12 @@ trait SingletonTrait
 
     final public function __sleep()
     {
-        throw new \Exception('The method __sleep is deny in singleton.');
+        throw new \Exception('The method __sleep is denied in singleton.');
     }
 
     final public function __wakeup()
     {
-        throw new \Exception('The method __wakeup is deny in singleton.');
+        throw new \Exception('The method __wakeup is denied in singleton.');
     }
 
     protected static function beforeGetInstance($class)
