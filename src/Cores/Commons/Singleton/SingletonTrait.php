@@ -14,7 +14,7 @@ trait SingletonTrait
 
     final public function __clone()
     {
-        throw new \Exception('The method __clone is deny in singleton.');
+        throw new \Exception('The method __clone is denied in singleton.');
     }
 
     final public function __sleep()
