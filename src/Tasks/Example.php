@@ -31,6 +31,7 @@ class Example extends Task
                 $sql = 'CREATE TABLE IF NOT EXISTS `users`(
                     `id` INT UNSIGNED AUTO_INCREMENT,
                     `name` VARCHAR(30) NOT NULL DEFAULT \'\',
+                    `age` TINYINT UNSIGNED NOT NULL,
                     `add_time` INT UNSIGNED NOT NULL,
                     PRIMARY KEY (`id`)
                 )';

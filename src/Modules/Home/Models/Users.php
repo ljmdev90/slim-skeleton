@@ -3,7 +3,7 @@ namespace Application\Modules\Home\Models;
 
 use Application\Cores\Model;
 
-class T1 extends Model
+class Users extends Model
 {
-    public static $table = 't1';
+    public static $table = 'users';
 }
