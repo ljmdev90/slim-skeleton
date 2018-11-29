@@ -23,12 +23,13 @@ class Example extends Task
                 $db = $this->get('db');
 
                 // 创建测试数据库
-                $table = 'ssdb';
-                $pdostat = $db->query('CREATE DATABASE IF NOT EXISTS ' . $table . ' CHARSET utf8');
+                $database = 'ssdb';
+                $table = 'users';
+                $pdostat = $db->query('CREATE DATABASE IF NOT EXISTS ' . $database . ' CHARSET utf8');
                 $this->errorCheck($pdostat);
-                $db->query('USE ' . $table);
+                $db->query('USE ' . $database);
                 // 创建测试表
-                $sql = 'CREATE TABLE IF NOT EXISTS `users`(
+                $sql = 'CREATE TABLE IF NOT EXISTS `' . $table . '`(
                     `id` INT UNSIGNED AUTO_INCREMENT,
                     `name` VARCHAR(30) NOT NULL DEFAULT \'\',
                     `age` TINYINT UNSIGNED NOT NULL,
@@ -37,7 +38,18 @@ class Example extends Task
                 )';
                 $pdostat = $db->query($sql);
                 $this->errorCheck($pdostat);
-
+                // 插入一些假数据
+                $faker = \Faker\Factory::create('zh_CN');
+                $insert_data = [];
+                for ($i = 0; $i < 10; $i++) {
+                    $insert_data[] = [
+                        'name'  =>  $faker->name,
+                        'age'   =>  mt_rand(20, 36),
+                        'add_time'  =>  $faker->dateTimeBetween('-1 years', 'now')->getTimestamp(),
+                    ];
+                }
+                $pdostat = $db->insert($table, $insert_data);
+                $this->errorCheck($pdostat);
                 $this->line('created!');
                 break;
             }

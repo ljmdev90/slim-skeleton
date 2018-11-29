@@ -13,7 +13,7 @@ return [
             'password' => getenv('DB_PASS'),
             'charset' => getenv('DB_CHARSET'),
             'port' => getenv('DB_PORT'),
-            'prefix' => 't_',
+            'prefix' => '',
             'option' => [
                 PDO::ATTR_CASE => PDO::CASE_NATURAL
             ]
