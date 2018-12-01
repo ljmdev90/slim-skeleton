@@ -47,10 +47,9 @@ class Example extends Controller
 
     public function redis()
     {
-        $redis = Redis::getInstance();
-        var_dump($redis);
         $redis = $this->get('redis');
-        var_dump($redis);
+        var_dump($redis->set('a', 1));
+        var_dump($redis->get('a'));
     }
 
     public function log()

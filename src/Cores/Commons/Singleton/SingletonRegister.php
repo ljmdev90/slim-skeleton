@@ -12,11 +12,12 @@ class SingletonRegister
 
     public function get($key, $callback)
     {
-        if (!is_object(self::$instances[$key])) {
+        if (!isset(self::$instances[$key]) || !is_object(self::$instances[$key])) {
             if (!is_callable($callback)) {
                 throw new \Exception('The param $callback must be callable.');
             }
-            self::set($key, $callback());
+            $instance = $callback();
+            self::set($key, $instance);
         }
         return self::$instances[$key];
     }

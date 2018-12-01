@@ -57,7 +57,7 @@ return [
 
         // redis setting
         'redis'  =>  [
-            'tcp://127.0.0.1:6379',
+            'tcp://redis:6379',
         ],
 
         // monolog setting
