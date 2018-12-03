@@ -4,7 +4,8 @@ namespace Application\Modules\Home\Controllers;
 use Application\Cores\Controller;
 use Application\Cores\Model;
 use Application\Cores\Libraries\Caches\Redis;
-use Application\Modules\Home\Models\Users;
+# use Application\Modules\Home\Models\Users;
+use Application\Models\Users;
 
 class Example extends Controller
 {

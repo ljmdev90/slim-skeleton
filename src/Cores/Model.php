@@ -22,6 +22,8 @@ class Model
 
     private static $container = null;
 
+    private $read = true;
+
     private function __construct()
     {
         if (!(self::$container instanceof ContainerInterface)) {
