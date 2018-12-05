@@ -65,7 +65,7 @@ $serv->on('request', function ($request, $response) {
 });
 
 $serv->set(array(
-    // 'daemonize' =>  1,
+    'daemonize' =>  1,
     'pid_file'  =>  $pid_file,
 ));
 
