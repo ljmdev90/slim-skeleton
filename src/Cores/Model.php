@@ -7,6 +7,9 @@ use Medoo\Medoo;
 use Application\Cores\Commons\Singleton\SingletonTrait;
 use Application\Cores\Commons\Singleton\SingletonRegister;
 
+/**
+ * 模型基类
+ */
 class Model
 {
     use SingletonTrait;
@@ -32,6 +35,9 @@ class Model
         $this->settings = self::$container->get('settings')['db-cluster'];
     }
 
+    /**
+     * 设置container的值(控制器基类调用)
+     */
     public static function setContainer(ContainerInterface $container)
     {
         self::$container = $container;
