@@ -1,6 +1,9 @@
 <?php
 namespace Application\Cores\Middlewares;
 
+/**
+ * 命令行任务中间件类
+ */
 class Task
 {
     private $container = null;
@@ -10,8 +13,12 @@ class Task
         $this->container = $container;
     }
 
+    /**
+     * 当把该类的对象以方法的方式调用时触发,类似Controller基类
+     */
     public function __invoke($request, $response, $next)
     {
+        // 非命令行时,当作普通请求处理
         if (PHP_SAPI != 'cli') {
             return $response = $next($request, $response);
         }
