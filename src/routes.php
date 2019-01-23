@@ -12,7 +12,7 @@ $app->any('/hello[/{name}]', '\Application\\Modules\\Home\\Controllers\\Index:he
 
 $app->group('', function () {
     $container = $this->getContainer();
-    ;
+    
     $this->map(['GET','POST'], '[/{controller}[/{action}]]', function ($req, $res, $args) use ($container) {
         $controller_name = '\Application\\Modules\\Home\\Controllers\\';
         $controller_name .= isset($args['controller']) ? ucwords($args['controller']) : 'Index';
