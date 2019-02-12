@@ -5,7 +5,7 @@ trait SingletonTrait
 {
     protected static $instances;
 
-    protected function __contruct()
+    protected function __construct()
     {
         if (method_exists($this, 'initialize')) {
             $this->initialize();
