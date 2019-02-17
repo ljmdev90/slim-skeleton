@@ -11,8 +11,7 @@
     use Application\Cores\Libraries\Caches\Redis;
 
     $container['redis'] = function ($c) {
-        Redis::$setting = $c->get('settings')['redis'];
-        return Redis::getInstance();
+        return new Redis($c->get('settings')['redis']);     // 不再依赖单例trait, 因为pimple自带
     };
 
     // view 如果routes里重新定义了，这里的值会被覆盖
