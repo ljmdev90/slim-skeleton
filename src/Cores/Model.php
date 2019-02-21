@@ -127,7 +127,7 @@ class Model
      */
     public function rollBack()
     {
-        $this->getConnection->pdo->rollBack();
+        $this->getConnection()->pdo->rollBack();
     }
 
     /**
@@ -135,7 +135,7 @@ class Model
      */
     public function commit()
     {
-        $this->getConnection->pdo->commit();
+        $this->getConnection()->pdo->commit();
     }
 
     /**
@@ -143,7 +143,7 @@ class Model
      */
     public function inTransaction()
     {
-        $this->getConnection->pdo->inTransaction();
+        $this->getConnection()->pdo->inTransaction();
     }
 
     /**
@@ -151,7 +151,7 @@ class Model
      */
     public function action($callback)
     {
-        $this->getConnection->action();
+        $this->getConnection()->action();
     }
 
     /**
