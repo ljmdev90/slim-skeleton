@@ -19,7 +19,7 @@ class Model
 
     public $pk = 'id';
 
-    private $settings = [];
+    private $setting = [];
 
     protected static $connections = [];
 
@@ -32,7 +32,11 @@ class Model
         if (!(self::$container instanceof ContainerInterface)) {
             throw new \Exception('Container in Model is not init.');
         }
-        $this->settings = self::$container->get('settings')['db-cluster'];
+        $settings = self::$container->get('settings')['db-cluster'];
+        $this->setting = [
+            'master'    =>  $settings['master'][array_rand($settings['master'])],
+            'slave'     =>  $settings['slave'][array_rand($settings['slave'])],
+        ];
     }
 
     /**
@@ -62,7 +66,7 @@ class Model
     public function getConnection()
     {
         $type = $this->read ? 'slave' : 'master';
-        $setting = $this->settings[$type][array_rand($this->settings[$type])];
+        $setting = $this->setting[$type];
         $key = md5(json_encode($setting));
         return SingletonRegister::getInstance()->get($key, function () use ($setting) {
             return new Medoo($setting);
