@@ -8,7 +8,7 @@ $app->get('/', function ($request, $response) {
     return $response;
 });
 
-$app->any('/hello[/{name}]', '\Application\\Modules\\Home\\Controllers\\Index:hello');
+$app->any('/hello[/{name}]', '\Application\\Modules\\Home\\Controllers\\Example:hello');
 
 $app->group('', function () {
     $container = $this->getContainer();
