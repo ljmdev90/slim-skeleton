@@ -48,7 +48,7 @@ $serv->on('request', function ($request, $response) {
     $_GET = $request->get;
     $_POST = $request->post;
     $_COOKIE = $request->cookie;
-    $_FILES = $request->files;  // 不知道为什么,这里postman测试一直没值
+    $_FILES = $request->files;
 
     $env = __DIR__ . '/../.env';
     if (file_exists($env)) {
