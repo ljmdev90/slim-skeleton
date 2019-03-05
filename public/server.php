@@ -27,14 +27,23 @@ define('SWOOLE_MODE', true);
 
 $serv = new Swoole\Http\Server('0.0.0.0', 9501);
 
-$serv->on('WorkerStart', function () {
+$settings = array();
+
+$serv->on('WorkerStart', function () use (&$settings) {
     require __DIR__ . '/../vendor/autoload.php';
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
+
+    $env = __DIR__ . '/../.env';
+    if (file_exists($env)) {
+        $dotenv = new Dotenv\Dotenv(dirname($env));
+        $dotenv->load();
+    }
+    $settings = require __DIR__ . '/../src/settings.php';
 });
 
-$serv->on('request', function ($request, $response) {
+$serv->on('request', function ($request, $response) use ($settings) {
     // 设置$_SERVER，使slim能够读取到其中的值
     foreach ($request->server as $key => $val) {
         // 如果不指定以下代码，$_SERVER中无REQUEST_METHOD等项，导致method not allow
@@ -50,12 +59,6 @@ $serv->on('request', function ($request, $response) {
     $_COOKIE = $request->cookie;
     $_FILES = $request->files;
 
-    $env = __DIR__ . '/../.env';
-    if (file_exists($env)) {
-        $dotenv = new Dotenv\Dotenv(dirname($env));
-        $dotenv->load();
-    }
-    $settings = require __DIR__ . '/../src/settings.php';
     $app = new \Slim\App($settings);
     require __DIR__ . '/../src/dependencies.php';
     require __DIR__ . '/../src/middleware.php';
