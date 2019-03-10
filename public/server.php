@@ -2,24 +2,38 @@
 
 $pid_file = '/tmp/server.pid';
 
-$is_stop = isset($argv[1]) && $argv[1] == 'stop' ? true : false;
+$oper = isset($argv[1]) ? strtolower($argv[1]) : 'start';
 
-if (file_exists($pid_file)) {
-    $pid = file_get_contents($pid_file);
+if (!in_array($oper, ['start', 'stop', 'reload'])) {
+    exit("Parameter 1 is invalid!\n");
+}
+
+if (file_exists($pid_file) && $pid = file_get_contents($pid_file)) {
     $is_exist = Swoole\Process::kill($pid, 0);
-    if ($is_exist) {
-        if ($is_stop) {
-            if (Swoole\Process::kill($pid)) {
+    switch ($oper) {
+        case 'start':
+            if ($is_exist) {
+                exit("Swoole Server is Already Running\n");
+            }
+            break;
+        case 'stop':
+            if ($is_exist && Swoole\Process::kill($pid)) {
                 exit("Stopped Swoole Server\n");
+            } elseif (!$is_exist) {
+                exit("Swoole Server has Stopped\n");
             } else {
                 exit("Stopping Swoole Server Error\n");
             }
-        } else {
-            exit("Swoole Server is Already Running");
-        }
+            break;
+        case 'reload':
+            if ($is_exist && $ret = Swoole\Process::kill($pid, SIGUSR1)) {
+                exit("Reloaded Swoole Server\n");
+            } elseif (!isset($ret) || !$ret) {
+                exit("Reloading Swoole Server Error\n");
+            }
+            break;
     }
-}
-if ($is_stop) {
+} elseif ($oper == 'stop') {
     exit("Swoole Server is not Running\n");
 }
 
