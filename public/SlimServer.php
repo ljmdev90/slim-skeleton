@@ -93,6 +93,9 @@ class SlimServer extends HttpServer
 
     public function onRequest($request, $response)
     {
+        if ($request->server['path_info'] == '/favicon.ico' || $request->server['request_uri'] == '/favicon.ico') {
+            return $response->end();
+        }
         // 设置$_SERVER，使slim能够读取到其中的值
         foreach ($request->server as $key => $val) {
             // 如果不指定以下代码，$_SERVER中无REQUEST_METHOD等项，导致method not allow
