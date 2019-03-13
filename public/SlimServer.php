@@ -10,7 +10,7 @@ class SlimServer extends HttpServer
     private static $instance = null;
 
     public $setting = [
-        // 'daemonize' =>  1,
+        'daemonize' =>  1,
         'pid_file'  =>  '/run/slim-server.pid',
     ];
 
@@ -28,7 +28,7 @@ class SlimServer extends HttpServer
         }
     }
 
-    public static function getInstance($setting = [])
+    public static function run()
     {
         if (!(self::$instance instanceof self)) {
             self::$instance = new self;
@@ -120,4 +120,4 @@ class SlimServer extends HttpServer
     }
 }
 
-SlimServer::getInstance();
+SlimServer::run();
