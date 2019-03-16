@@ -25,3 +25,10 @@
         $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
         return $logger;
     };
+
+    if (defined('SWOOLE_MODE') && SWOOLE_MODE) {
+        $obj = $this;
+        $container['slim-server'] = function ($c) use ($obj) {
+            return $obj;
+        };
+    }

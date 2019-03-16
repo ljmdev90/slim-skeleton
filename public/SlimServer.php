@@ -12,6 +12,8 @@ class SlimServer extends HttpServer
     public $setting = [
         'daemonize' =>  1,
         'pid_file'  =>  '/run/slim-server.pid',
+        'log_file'  =>  '/tmp/slim-server.log',
+        'task_worker_num'   =>  10,
     ];
 
     private function __construct($host = '0.0.0.0', $port = 9501)
@@ -22,6 +24,7 @@ class SlimServer extends HttpServer
             $this->set($this->setting);
             $this->on('workerStart', [$this, 'onWorkerStart']);
             $this->on('request', [$this, 'onRequest']);
+            $this->on('task', [$this, 'onTask']);
             $this->start();
         } catch (\Throwable $e) {
             // pass
@@ -117,6 +120,15 @@ class SlimServer extends HttpServer
         require __DIR__ . '/../src/routes.php';
         $slimResponse = $app->run(true);
         $response->end($slimResponse->getBody());
+    }
+
+    public function onTask($serv, $task_id, $from_id, $data)
+    {
+        // 后期可以把处理task的逻辑按照一定规则的写到其它类中
+        echo 'Task starts at ', date('Y-m-d H:i:s'), "\n";
+        sleep(3);
+        echo 'Task ends at ' . date('Y-m-d H:i:s'), "\n";
+        return true;
     }
 }
 

@@ -66,8 +66,13 @@ class Example extends Controller
     {
         # sleep(1);
         swoole_timer_after(1000, function () {
-            var_dump('abc');
+            var_dump('timer after 1000');
         });
-        var_dump(123);
+        $serv = $this->get('slim-server');
+        $serv->task('test data', -1, function($serv, $task_id, $data) {
+            echo 'task_id:', $task_id, "\n";
+            echo 'data:', $data, "\n";
+        });
+        var_dump('swoole');
     }
 }
