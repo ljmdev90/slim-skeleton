@@ -1,9 +1,9 @@
 <?php
-namespace Application\Tasks;
+namespace Application\Commands;
 
-use Application\Cores\Task;
+use Application\Cores\Command;
 
-class Example extends Task
+class Example extends Command
 {
     public function run($params = [])
     {

@@ -4,7 +4,7 @@ namespace Application\Cores\Middlewares;
 /**
  * 命令行任务中间件类
  */
-class Task
+class Command
 {
     private $container = null;
 
@@ -28,7 +28,7 @@ class Task
         $command = '';
         if (count($argv) > 1) {
             $command = $argv[1];
-            $class = '\\Application\\Tasks\\' . $command;
+            $class = '\\Application\\Commands\\' . $command;
             $example = new $class($this->container);
             
             $args = array_slice($argv, 2);

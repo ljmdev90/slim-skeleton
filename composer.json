@@ -16,7 +16,7 @@
             "Application\\Cores\\":"src/Cores/",
             "Application\\Modules\\":"src/Modules/",
             "Application\\Models\\":"src/Models/",
-            "Application\\Tasks\\":"src/Tasks/"
+            "Application\\Commands\\":"src/Commands/"
         }
     },
     "require-dev": {

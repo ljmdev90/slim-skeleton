@@ -4,7 +4,7 @@ namespace Application\Cores;
 /**
  * 命令行任务基类
  */
-class Task extends Controller
+class Command extends Controller
 {
     /**
      * 调用\cli\{method}相关方法,方便命令行展示
