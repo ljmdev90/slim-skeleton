@@ -7,7 +7,7 @@
 
 2. nginx + swoole
    
-    php public/server.php    
+    php public/SlimServer.php -s start/stop/reload
     配置nginx转发请求
 
 ## 代码说明
