@@ -69,7 +69,7 @@ class Example extends Controller
             var_dump('timer after 1000');
         });
         $serv = $this->get('slim-server');
-        $serv->task('test data', -1, function($serv, $task_id, $data) {
+        $serv->newTask('test data', -1, function($serv, $task_id, $data) {
             echo 'task_id:', $task_id, "\n";
             echo 'data:', $data, "\n";
         });

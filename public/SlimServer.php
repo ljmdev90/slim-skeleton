@@ -16,6 +16,9 @@ class SlimServer extends HttpServer
         'task_worker_num'   =>  10,
     ];
 
+    public $tasks_ns = '\Application\Tasks';
+    public $decollator = '|';
+
     private function __construct($host = '0.0.0.0', $port = 9501)
     {
         try {
@@ -124,11 +127,18 @@ class SlimServer extends HttpServer
 
     public function onTask($serv, $task_id, $from_id, $data)
     {
-        // 后期可以把处理task的逻辑按照一定规则的写到其它类中
-        echo 'Task starts at ', date('Y-m-d H:i:s'), "\n";
-        sleep(3);
-        echo 'Task ends at ' . date('Y-m-d H:i:s'), "\n";
+        list($name, $data) = explode($this->decollator, $data);
+        (new $this->tasks_ns . '\\' . $name)->run($task_id, $from_id, $data);
         return true;
+    }
+
+    public function newTask($name, $data, $dst_worker_id = -1, $callback = null)
+    {
+        if (is_callable($callback)) {
+            $this->task($name . $this->decollator . $data, $dst_worker_id, $callback);
+        } else {
+            $this->task($name . $this->decollator . $data, $dst_worker_id);
+        }
     }
 }
 
