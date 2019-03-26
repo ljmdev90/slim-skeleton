@@ -128,7 +128,8 @@ class SlimServer extends HttpServer
     public function onTask($serv, $task_id, $from_id, $data)
     {
         list($name, $data) = explode($this->decollator, $data);
-        (new $this->tasks_ns . '\\' . $name)->run($task_id, $from_id, $data);
+        $class = $this->tasks_ns . '\\' . $name;    // 直接new $this->tasks_ns . '\\' . $name不对，因为.的优先及低
+        (new $class)->run($task_id, $from_id, $data);
         return true;
     }
 

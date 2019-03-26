@@ -5,6 +5,6 @@ class Example
 {
     public function run($task_id, $from_id, $data)
     {
-        // do something
+        echo "Task_id:$task_id\nFrom_id:$from_id\nData:$data\nRunning\n";
     }
 }
