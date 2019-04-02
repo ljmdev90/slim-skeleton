@@ -3,7 +3,7 @@
 define('SWOOLE_MODE', true);
 
 use Swoole\Process;
-use Swoole\Http\Server as HttpServer;
+use Swoole\WebSocket\Server as HttpServer;
 
 class SlimServer extends HttpServer
 {
@@ -26,6 +26,7 @@ class SlimServer extends HttpServer
             parent::__construct($host, $port);
             $this->set($this->setting);
             $this->on('workerStart', [$this, 'onWorkerStart']);
+            $this->on('message', [$this, 'onMessage']);
             $this->on('request', [$this, 'onRequest']);
             $this->on('task', [$this, 'onTask']);
             $this->start();
@@ -123,6 +124,12 @@ class SlimServer extends HttpServer
         require __DIR__ . '/../src/routes.php';
         $slimResponse = $app->run(true);
         $response->end($slimResponse->getBody());
+    }
+
+    public function onMessage($server, $frame)
+    {
+        echo "receive from {$frame->fd}:{$frame->data},opcode:{$frame->opcode},fin:{$frame->finish}\n";
+        $server->push($frame->fd, "this is server");
     }
 
     public function onTask($serv, $task_id, $from_id, $data)
