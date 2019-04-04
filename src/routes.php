@@ -14,15 +14,15 @@ $app->group('', function () {
     $container = $this->getContainer();
     
     $this->map(['GET','POST'], '[/{module}[/{controller}[/{action}]]]', function ($req, $res, $args) use ($container) {
-		if (!isset($args['action']) || empty($args['action'])) {
-		    $module = 'Home';
-			$controller = isset($args['module']) ? ucwords($args['module']) : 'Index';
-			$args['action'] = $args['controller'];
-			$args['controller'] = $controller;
-		} else {
-			$module = ucwords($args['module']);
-			$controller = isset($args['controller']) ? ucwords($args['controller']) : 'Index';
-		}
+        if (!isset($args['action']) || empty($args['action'])) {
+            $module = 'Home';
+            $controller = isset($args['module']) ? ucwords($args['module']) : 'Index';
+            $args['action'] = $args['controller'];
+            $args['controller'] = $controller;
+        } else {
+            $module = ucwords($args['module']);
+            $controller = isset($args['controller']) ? ucwords($args['controller']) : 'Index';
+        }
         $controller_name = '\Application\\Modules\\' . $module . '\\Controllers\\';
         $controller_name .= $controller;
         $controller = new $controller_name($container);

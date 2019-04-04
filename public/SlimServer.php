@@ -43,7 +43,8 @@ class SlimServer extends HttpServer
         return self::$instance;
     }
 
-    public function process() {
+    public function process()
+    {
         $opts = getopt('s:');
         if (!isset($opts['s'])) {
             $opts['s'] = 'start';
