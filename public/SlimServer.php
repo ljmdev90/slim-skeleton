@@ -1,6 +1,5 @@
 <?php
-
-define('SWOOLE_MODE', true);
+namespace SlimServer;
 
 use Swoole\Process;
 use Swoole\WebSocket\Server as HttpServer;
@@ -151,4 +150,5 @@ class SlimServer extends HttpServer
     }
 }
 
+define('SWOOLE_MODE', true);
 SlimServer::run();
