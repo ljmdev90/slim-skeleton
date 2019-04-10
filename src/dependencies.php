@@ -19,6 +19,7 @@
         return new \Slim\Views\PhpRenderer('./templates/');
     };
 
+    // log
     $container['logger'] = function ($c) {
         $settings = $c->get('settings')['logger'];
         $logger = new Monolog\Logger($settings['name']);
@@ -26,6 +27,7 @@
         return $logger;
     };
 
+    // 添加swoole server至container
     if (defined('SWOOLE_MODE') && SWOOLE_MODE) {
         $obj = $this;
         $container['slim-server'] = function ($c) use ($obj) {
