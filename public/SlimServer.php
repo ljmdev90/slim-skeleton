@@ -92,7 +92,7 @@ class SlimServer extends HttpServer
 
         $env = __DIR__ . '/../.env';
         if (file_exists($env)) {
-            $dotenv = new Dotenv\Dotenv(dirname($env));
+            $dotenv = new \Dotenv\Dotenv(dirname($env));
             $dotenv->load();
         }
         $this->settings = require __DIR__ . '/../src/settings.php';
