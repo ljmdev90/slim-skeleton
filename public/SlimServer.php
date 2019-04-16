@@ -28,6 +28,7 @@ class SlimServer extends HttpServer
             $this->on('message', [$this, 'onMessage']);
             $this->on('request', [$this, 'onRequest']);
             $this->on('task', [$this, 'onTask']);
+            $this->on('finish', [$this, 'onFinish']);
             $this->start();
         } catch (\Throwable $e) {
             // pass
@@ -138,6 +139,10 @@ class SlimServer extends HttpServer
         $class = $this->tasks_ns . '\\' . $name;    // 直接new $this->tasks_ns . '\\' . $name不对，因为.的优先及低
         (new $class)->run($task_id, $from_id, $data);
         return true;
+    }
+
+    public function onFinish($serv, $task_id, $data)
+    {
     }
 
     public function newTask($name, $data, $dst_worker_id = -1, $callback = null)
