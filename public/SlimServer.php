@@ -130,7 +130,9 @@ class SlimServer extends HttpServer
     public function onMessage($server, $frame)
     {
         echo "receive from {$frame->fd}:{$frame->data},opcode:{$frame->opcode},fin:{$frame->finish}\n";
-        $server->push($frame->fd, "this is server");
+        \Swoole\Timer::tick(1000, function() use ($server, $frame) {
+            $server->push($frame->fd, date('Y-m-d H:i:s'));
+        });
     }
 
     public function onTask($serv, $task_id, $from_id, $data)
