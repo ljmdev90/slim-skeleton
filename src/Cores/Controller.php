@@ -59,7 +59,7 @@ abstract class Controller
             $path = $uri->getPath();
             $path = explode('/', ltrim($path, '/'));
             array_walk($path, function (&$item) {
-                $item = \ucfirst(reset(explode('.', $item)));
+                $item = \ucfirst(current(explode('.', $item)));
             });
             $template_file = implode('/', $path) . '.php';
         }
