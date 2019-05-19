@@ -38,7 +38,7 @@ abstract class Controller
             return call_user_func_array(array($this, $action_name), $params);
         }
         
-        throw new NotFoundException($req, $res);
+        throw new \NotFoundException($req, $res);
     }
     
     /**
